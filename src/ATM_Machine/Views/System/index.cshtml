@@ -1,0 +1,33 @@
+@model User
+ <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">     
+                        <a class="navbar-brand" href="#">Brand</a>
+                    </div>
+                    <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li ><a id="logout" href="#">Logout <span class="sr-only">(current)</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+         </nav>  
+         <div class="col-md-offset-2 col-md-8 col-md-offset-2">
+            <h1>Welcome @Model.name </h1>
+            <p>Your balance is @Model.balance </p>
+
+ 
+
+             <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                 <div class="modal-dialog modal-sm" role="document">
+                     <div class="modal-content" id="modal_content">
+                         
+                     </div>
+                 </div>
+             </div>
+
+            <button class="btn btn-default" data-toggle="modal" id="withdraw"  data-target=".bs-example-modal-sm">Withdraw</button>
+            <button class="btn btn-warning" data-toggle="modal" id="deposit" data-target=".bs-example-modal-sm">Deposit</button>
+            <button class="btn btn-danger" data-toggle="modal" id="transfer" data-target=".bs-example-modal-sm">Transfer</button>
+        </div>
+
+         <script src="system.js"></script>
