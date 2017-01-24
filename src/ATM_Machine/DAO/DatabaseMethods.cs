@@ -7,8 +7,8 @@ public class DatabaseMethods{
 
     public bool registerSingedUp(User user){ 
         try{
-            var client = new MongoClient();
-            var database = client.GetDatabase("ATM_Machine");
+            var client = new MongoClient("mongodb://raryson:123456789@ds127389.mlab.com:27389/atm_machine");
+            var database = client.GetDatabase("atm_machine");
             var collection = database.GetCollection<User>("Users");    
             collection.InsertOne(user);
             return true;
@@ -19,8 +19,8 @@ public class DatabaseMethods{
             }
         }
     public bool verifyCadastredEmail(string email){
-        var client = new MongoClient();
-        var database = client.GetDatabase("ATM_Machine");
+        var client = new MongoClient("mongodb://raryson:123456789@ds127389.mlab.com:27389/atm_machine");
+        var database = client.GetDatabase("atm_machine");
         var collection = database.GetCollection<User>("Users");
         //criar validação de e-mail igual, não deixar passar
         var count = collection.AsQueryable().Where(u => u.email == email).Count();
@@ -34,8 +34,8 @@ public class DatabaseMethods{
 
 
     public bool loginDatabase(string email, string password){
-        var client = new MongoClient();
-        var database = client.GetDatabase("ATM_Machine");
+        var client = new MongoClient("mongodb://raryson:123456789@ds127389.mlab.com:27389/atm_machine");
+        var database = client.GetDatabase("atm_machine");
         var collection = database.GetCollection<User>("Users");
         //criar validação de e-mail igual, não deixar passar
         var countLogin = collection.AsQueryable().Where(u => u.email == email && u.password == password).Count();
@@ -48,8 +48,8 @@ public class DatabaseMethods{
     }
 
     public User montUser(string email){
-        var client = new MongoClient();
-        var database = client.GetDatabase("ATM_Machine");
+        var client = new MongoClient("mongodb://raryson:123456789@ds127389.mlab.com:27389/atm_machine");
+        var database = client.GetDatabase("atm_machine");
         var collection = database.GetCollection<User>("Users");
         var query = collection.AsQueryable<User>().Where(e => e.email == email).Select(User => User);
         
@@ -59,8 +59,8 @@ public class DatabaseMethods{
 
     public void changeCredits(string email, double valueToChange)
     {
-        var client = new MongoClient();
-        var database = client.GetDatabase("ATM_Machine");
+        var client = new MongoClient("mongodb://raryson:123456789@ds127389.mlab.com:27389/atm_machine");
+        var database = client.GetDatabase("atm_machine");
         var collection = database.GetCollection<User>("Users");
         var user = new User();
         user.setBalance(valueToChange);
