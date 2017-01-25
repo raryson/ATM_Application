@@ -25,26 +25,26 @@ public class SystemController : Controller
         return StatusCode(200);
     }
 
-    public ActionResult Deposit(double valueToDeposit)
+    public ActionResult Deposit(double valueToDeposit, string transactType)
     {
         var id = Request.Cookies["email"];
         DatabaseMethods database = new DatabaseMethods();
-        database.changeCredits(id, valueToDeposit);
+        database.changeCredits(id, valueToDeposit, transactType);
 
         return StatusCode(201);
     }
-    public ActionResult Withdraw(double valueToWithdraw)
+    public ActionResult Withdraw(double valueToWithdraw, string transactType)
     {
         var id = Request.Cookies["email"];
         DatabaseMethods database = new DatabaseMethods();
         var negativeWithdraw = -valueToWithdraw;
-        database.changeCredits(id, negativeWithdraw);
+        database.changeCredits(id, negativeWithdraw, transactType);
 
         return StatusCode(201);
 
     }
 
-    public ActionResult Transfer(double valueToTransfer, string emailToTransfer)
+    public ActionResult Transfer(double valueToTransfer, string emailToTransfer, string transactType)
     {
 
         var id = Request.Cookies["email"];
@@ -53,8 +53,8 @@ public class SystemController : Controller
         var cadastred = database.verifyCadastredEmail(emailToTransfer);
         if(cadastred == false)
         {
-            database.changeCredits(id, valueToTransferNegative);
-            database.changeCredits(emailToTransfer, valueToTransfer);
+            database.changeCredits(id, valueToTransferNegative, transactType);
+            database.changeCredits(emailToTransfer, valueToTransfer, transactType);
             return StatusCode(201);
 
         }else

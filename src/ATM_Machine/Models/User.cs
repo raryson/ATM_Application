@@ -9,8 +9,12 @@ public class User{
     public string name { get; private set;}
     public double balance {get; private set;}
     public int age { get; private set; }
+
+    //model log
     [BsonElement(elementName: "logs")]
-    public IEnumerable<string> logs;
+    public IEnumerable<BsonDocument> logs;
+
+
     public string email {get; private set;}
     public string password{get; private set;}
 

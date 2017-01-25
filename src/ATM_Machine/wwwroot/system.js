@@ -3,6 +3,11 @@ var logout = document.querySelector("#logout");
     withdrawButton = document.querySelector("#withdraw");
     depositButton = document.querySelector("#deposit");
     transferButton = document.querySelector("#transfer");
+    transactsButton = document.querySelector("#logs");
+
+    transactsButton.addEventListener('click', function () {
+        window.location = "Transacts";
+    })
 
 
 logout.addEventListener('click', function (event) {
@@ -29,7 +34,7 @@ withdrawButton.addEventListener('click', function () {
         $.ajax({
             method: "POST",
             url: '/System/Withdraw',
-            data: { valueToWithdraw: valueToWithdraw },
+            data: { valueToWithdraw: valueToWithdraw, transactType: "Withdraw" },
             statusCode: {
                 201: function () {
                     window.location = "/System";
@@ -55,7 +60,7 @@ transferButton.addEventListener('click', function () {
         $.ajax({
             method: "POST",
             url: '/System/Transfer',
-            data: { emailToTransfer: emailToTransfer, valueToTransfer: valueToTransfer},
+            data: { emailToTransfer: emailToTransfer, valueToTransfer: valueToTransfer, transactType: "Transfer" },
             statusCode: {
                 201: function () {
                     window.location = "/System";
@@ -79,7 +84,7 @@ depositButton.addEventListener('click', function () {
         $.ajax({
             method: "POST",
             url: '/System/Deposit',
-            data: { valueToDeposit: valueToDeposit},
+            data: { valueToDeposit: valueToDeposit, transactType : "Deposit"},
             statusCode: {
                 201: function () {
                     window.location = "/System";

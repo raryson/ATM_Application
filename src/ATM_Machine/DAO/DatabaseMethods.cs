@@ -59,7 +59,7 @@ public class DatabaseMethods{
         return query.First();
     }
 
-    public void changeCredits(string email, double valueToChange)
+    public void changeCredits(string email, double valueToChange, string transcatType)
     {
         var client = new MongoClient("mongodb://raryson:123456789@ds127389.mlab.com:27389/atm_machine");
         var database = client.GetDatabase("atm_machine");
@@ -67,7 +67,7 @@ public class DatabaseMethods{
         var user = new User();
         user.setBalance(valueToChange);
         var update = new BsonDocument("$inc", new BsonDocument { { "balance", user.balance } });
-        var update2 = new BsonDocument("$push", new BsonDocument { { "logs", new BsonDocument { { "log1", "log1" }, { "log2", "log2" } } } });
+        var update2 = new BsonDocument("$push", new BsonDocument { { "logs", new BsonDocument { { "transcatType", transcatType }, { "valueTransact", valueToChange }, {"dateTransact", DateTime.Now } } } });
         var filter = MongoDB.Driver.Builders<User>.Filter.Eq("email", email);
         collection.FindOneAndUpdate(filter, update);
         collection.FindOneAndUpdate(filter, update2);
@@ -75,6 +75,22 @@ public class DatabaseMethods{
 
     }
 
-  
+    public void changeCreditsTransfer(string email, double valueToChange, string transcatType)
+    {
+        var client = new MongoClient("mongodb://raryson:123456789@ds127389.mlab.com:27389/atm_machine");
+        var database = client.GetDatabase("atm_machine");
+        var collection = database.GetCollection<User>("Users");
+        var user = new User();
+        user.setBalance(valueToChange);
+        var update = new BsonDocument("$inc", new BsonDocument { { "balance", user.balance } });
+        var update2 = new BsonDocument("$push", new BsonDocument { { "logs", new BsonDocument { { "transcatType", transcatType }, { "valueTransact", valueToChange }, { "dateTransact", DateTime.Now } } } });
+        var filter = MongoDB.Driver.Builders<User>.Filter.Eq("email", email);
+        collection.FindOneAndUpdate(filter, update);
+        collection.FindOneAndUpdate(filter, update2);
+
+
+    }
+
+
 
 }

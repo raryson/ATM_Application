@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-
+using MongoDB.Bson;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class SingupController : Controller {
     public IActionResult Index(){
@@ -12,7 +15,13 @@ public class SingupController : Controller {
         user.setEmail(email);
         user.setPassWord(password);
         user.setAge(age);
-        user.setName(name);  
+        user.setName(name);
+
+        var bsoncontent = new BsonDocument { { "logs", new BsonDocument { { "transcatType", "Your first log" }, { "valueTransact", "Your first log" }, { "dateTransact", "Your first log" } } } };
+        var users = new List<BsonDocument>();
+        users.Add(bsoncontent);
+
+        user.logs = users;
 
         DatabaseMethods database = new DatabaseMethods();
         bool emailVerify = database.verifyCadastredEmail(user.email);
