@@ -1,13 +1,16 @@
 using MongoDB.Bson;
+using System;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Collections.Generic;
 
 public class User{
 
     public BsonObjectId _id;
     public string name { get; private set;}
     public double balance {get; private set;}
-    public int age { get; private set;}
-
+    public int age { get; private set; }
+    [BsonElement(elementName: "logs")]
+    public IEnumerable<string> logs;
     public string email {get; private set;}
     public string password{get; private set;}
 

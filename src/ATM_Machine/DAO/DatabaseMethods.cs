@@ -1,7 +1,9 @@
 using MongoDB.Driver;
 using System.Linq;
+using System;
 using MongoDB.Driver.Linq;
 using MongoDB.Bson;
+using System.Collections.Generic;
 
 public class DatabaseMethods{
 
@@ -65,9 +67,10 @@ public class DatabaseMethods{
         var user = new User();
         user.setBalance(valueToChange);
         var update = new BsonDocument("$inc", new BsonDocument { { "balance", user.balance } });
-        var filter = new BsonDocument( new BsonDocument { { "email", email} });
-        // var filter = MongoDB.Driver.Builders<User>.Filter.Eq("email", email);
+        var update2 = new BsonDocument("$push", new BsonDocument { { "logs", new BsonDocument { { "log1", "log1" }, { "log2", "log2" } } } });
+        var filter = MongoDB.Driver.Builders<User>.Filter.Eq("email", email);
         collection.FindOneAndUpdate(filter, update);
+        collection.FindOneAndUpdate(filter, update2);
        
 
     }
